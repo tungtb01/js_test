@@ -6,8 +6,11 @@ document.body.onkeydown = (e) => {
 var SELECTED_ITEM;
 //Init history from localStorage
 function initHistory() {
-	let history = localStorage.getItem('selectedHistory');
-	SELECTED_ITEM = JSON.parse(history) ? JSON.parse(history) : [];
+	let history = null;
+	try {
+		history = localStorage.getItem('selectedHistory');
+	} catch (e) { }
+	SELECTED_ITEM = history ? JSON.parse(history) : [];
 	printSelectedItem();
 }
 
@@ -21,6 +24,7 @@ function initData() {
 		currentItem = TABLE_DATA[i];
 		li = document.createElement("li");
 		li.className = 'itemDetail' + currentItem.id;
+		li.style.display = 'block';
 		li.setAttribute('item-name', currentItem.name);
 		img = document.createElement("img");
 		img.src = currentItem.thumbnailUrl;
@@ -29,9 +33,9 @@ function initData() {
 		li.appendChild(img);
 		li.appendChild(tx);
 		//Add click event listener
-		li.addEventListener("click", (e) => {
-			itemClick(e.srcElement);
-			addSelectedItem(e.srcElement);
+		li.addEventListener("click", (event) => {
+			itemClick(event.srcElement);
+			addSelectedItem(event.srcElement);
 		});
 		ul.appendChild(li);
 	}
@@ -169,7 +173,7 @@ function selectItemByKeyboard(e) {
 	if (e.keyCode == 38) { // up
 		selectedObj = document.getElementsByClassName('selected')[0];
 		if (selectedObj) {
-			preObj = selectedObj.previousElementSibling;
+			preObj = getPreElement(selectedObj);
 			if (preObj) {
 				itemClick(preObj);
 			}
@@ -178,7 +182,7 @@ function selectItemByKeyboard(e) {
 	if (e.keyCode == 40) { // down
 		selectedObj = document.getElementsByClassName('selected')[0];
 		if (selectedObj) {
-			nextObj = selectedObj.nextElementSibling;
+			nextObj = getNextElement(selectedObj);
 		} else {
 			nextObj = document.getElementsByClassName('listApp')[0].firstElementChild;
 		}
@@ -186,10 +190,34 @@ function selectItemByKeyboard(e) {
 			itemClick(nextObj);
 		}
 
+
 	}
 	if (e.keyCode == 46) { // delete
 
 	}
+}
+
+function getNextElement(elementObj) {
+	while (elementObj != null) {
+		if (elementObj.nextSibling && elementObj.nextSibling.style &&
+			elementObj.nextSibling.style.display === 'block') {
+			return elementObj.nextSibling;
+		}
+		elementObj = elementObj.nextSibling;
+	}
+	return elementObj;
+
+}
+
+function getPreElement(elementObj) {
+	while (elementObj != null) {
+		if (elementObj.previousSibling && elementObj.previousSibling.style &&
+			elementObj.previousSibling.style.display === 'block') {
+			return elementObj.previousSibling;
+		}
+		elementObj = elementObj.previousSibling;
+	}
+	return elementObj;
 }
 
 function displaySuggest() {
@@ -213,6 +241,9 @@ function bodyClick(event) {
 
 //Check parent of a child
 function isNotDescendant(parent, child) {
+	if (!child) {
+		return false;
+	}
 	let node = child.parentNode;
 	while (node != null) {
 		if (node == parent) {

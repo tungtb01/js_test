@@ -30,3 +30,6 @@ There are many apps in Apple Sotre, please implement a suggest plugin for easier
 2.  Handle click event by event delegation, .etc
 3.  Make it extensible for other data source and template supports mobile browsers, such as iOS Safari. 
 4.  Should save input history when suggested item is selected. Manage input history in local browser(localStorage, indexDB, .etc) display history items with higher priority should enable user to clear special search history item.
+
+# Note
+1. Using http-server to run (localStorage) on Safari (MacOS).
