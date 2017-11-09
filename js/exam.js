@@ -1,8 +1,10 @@
+//Add keydown listenner
 document.body.onkeydown = (e) => {
 	selectItemByKeyboard(e);
 };
 
 var SELECTED_ITEM;
+//Init history from localStorage
 function initHistory() {
 	let history = localStorage.getItem('selectedHistory');
 	SELECTED_ITEM = JSON.parse(history) ? JSON.parse(history) : [];
@@ -11,6 +13,7 @@ function initHistory() {
 
 initHistory();
 
+//Init list data from TABLE_DATA
 function initData() {
 	let ul = document.createElement("ul"), li, img, tx, currentItem;
 	ul.className = 'listApp';
@@ -25,6 +28,7 @@ function initData() {
 		tx.textContent = currentItem.name;
 		li.appendChild(img);
 		li.appendChild(tx);
+		//Add click event listener
 		li.addEventListener("click", (e) => {
 			itemClick(e.srcElement);
 			addSelectedItem(e.srcElement);
@@ -47,6 +51,7 @@ function addListener(element, eventName, handler) {
 	}
 }
 
+//Reset all class of Li tags
 function resetListClass() {
 	let tmpItem;
 	for (let i = 0; i < TABLE_DATA.length; i++) {
@@ -64,6 +69,7 @@ function onInputFocus() {
 	displaySuggest();
 }
 
+//Process when user click
 function itemClick(eventElement) {
 	resetListClass();
 	let itemClass = '';
@@ -78,6 +84,7 @@ function itemClick(eventElement) {
 	itemObj.className += ' selected';
 }
 
+//Add selected item to variable and localStorage
 function addSelectedItem(eventElement) {
 	let itemClass = '';
 	if (eventElement.className !== '') {
@@ -91,11 +98,13 @@ function addSelectedItem(eventElement) {
 	let isExist = SELECTED_ITEM.indexOf(itemObj.innerText) < 0 ? true : false;
 	if (isExist) {
 		SELECTED_ITEM.push(itemObj.innerText);
+		//Add to localStorage
 		localStorage.setItem('selectedHistory', JSON.stringify(SELECTED_ITEM));
 		printSelectedItem();
 	}
 }
 
+//Print list selected item
 function printSelectedItem() {
 	let showDelete = document.getElementById('textIcon');
 	if (SELECTED_ITEM && SELECTED_ITEM.length > 0) {
@@ -110,6 +119,7 @@ function printSelectedItem() {
 	selectedItemObj.setAttribute('title', selectedInfo);
 }
 
+//Process delete list selected item
 function deleteSelected() {
 	SELECTED_ITEM = [];
 	localStorage.setItem('selectedHistory', JSON.stringify(SELECTED_ITEM));
@@ -119,6 +129,7 @@ function deleteSelected() {
 	showDelete.style.display = 'none';
 }
 
+//Process list item when input onkeydown
 function updateList(e) {
 	let inputValue = document.getElementById('inputServiceName').value;
 	inputValue = inputValue.trim();
@@ -141,6 +152,7 @@ function updateList(e) {
 	}
 }
 
+//Process keydown event
 function selectItemByKeyboard(e) {
 	var isHidden = document.getElementsByClassName("contents")[0].style.display == "none";
 	if (isHidden) {
@@ -199,6 +211,7 @@ function bodyClick(event) {
 	}
 }
 
+//Check parent of a child
 function isNotDescendant(parent, child) {
 	let node = child.parentNode;
 	while (node != null) {
