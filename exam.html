@@ -1,0 +1,34 @@
+<!doctype>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+  <title>javascript coding exam</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="initData()" onclick="bodyClick(event)">
+  <div class="container">
+    <h2>UIT Team JavaScript Testing</h2>
+    <form class="" role="form">
+      <div class="">
+        <label>Input service name</label>
+        <br>
+        <div id="searchBox" class="showContent" onclick="showContent()">
+          <span id="selectedItem" class="showContent"></span>
+          <span id="textIcon" class="showContent" onclick="deleteSelected()">×</span>
+          <input id="inputServiceName" class="showContent" onkeyup="updateList(event)" onfocus="onInputFocus()" type="text" name="apps" value="" />
+        </div>
+      </div>
+    </form>
+
+    <div class="contents">
+    </div>
+  </div>
+  <script src="json/data.js"></script>
+  <script src="js/exam.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+ul,li{
+    list-style: none;
+}
+
+form{
+    margin-bottom: 0px;
+}
+
+#inputServiceName{
+    height: 40px;
+    outline: none;
+    padding-left: 5px;
+    border: none;
+    float: left;
+    max-width: 100px;
+}
+
+.contents{ 
+    display: none;
+    width: 250px;
+}
+
+.contents .listApp{
+    max-height: 400px;
+    overflow: auto;
+    width: 250px;
+    background-color: #cccccc;
+    padding: 0px;
+}
+
+.contents .listApp li{
+    height: 50px;
+    border-bottom: 1px solid #bdbbbb;
+    cursor: pointer;
+}
+
+.contents .listApp li:hover, .contents .listApp li.selected{
+    background-color: #a2a2a2;
+}
+
+.contents .listApp li > img{
+    height: 100%;
+    padding: 7px;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.contents .listApp li > span{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-flex;
+    max-width: 150px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#searchBox{
+    width: 252px;
+    height: 42px;
+    border: 1px solid #a2a2a2;
+    position: relative;
+}
+
+#selectedItem{
+    max-width: 150px;
+    display: block;
+    height: 42px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+    overflow: hidden;
+    line-height: 40px;
+    padding-left: 5px;
+}
+
+#searchBox #textIcon{
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    cursor: pointer;
+    background-color: #ccc;
+    width: 10px;
+    height: 10px;
+    border-radius: 4px;
+    line-height: 0.7;
+    display: none;
+}
